@@ -500,3 +500,17 @@ body {
     padding: 1.3rem 1.2rem;
   }
 }
+
+.project-card,
+.skill-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.project-card:hover,
+.skill-card:hover,
+.project-card.active-touch,
+.skill-card.active-touch {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
