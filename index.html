@@ -406,5 +406,15 @@
         observer.observe(el);
       });
     </script>
+
+    <script>
+  // Enable hover-like feedback on touch
+  document.querySelectorAll(".project-card, .skill-card").forEach(card => {
+    card.addEventListener("touchstart", () => {
+      card.classList.add("active-touch");
+      setTimeout(() => card.classList.remove("active-touch"), 400);
+    });
+  });
+</script>
   </body>
 </html>
