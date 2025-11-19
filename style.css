@@ -18,13 +18,9 @@ body {
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
   color: #f9fafb; /* near white */
-  background:
-    radial-gradient(circle at top left, rgba(255, 122, 26, 0.15) 0, transparent 45%),
-    radial-gradient(circle at bottom right, rgba(255, 122, 26, 0.1) 0, transparent 55%),
-    #050509; /* deep black base */
+  background: #000000; /* pure black */
   -webkit-font-smoothing: antialiased;
 }
-
 /* Global containers */
 
 .container {
@@ -249,11 +245,8 @@ a:hover {
 .section {
   padding: 3.5rem 0;
 }
-
 .section-alt {
-  background:
-    radial-gradient(circle at top right, rgba(255, 122, 26, 0.12) 0, transparent 55%),
-    linear-gradient(to bottom, #050509, #050509);
+  background: #000000;
 }
 
 .section h2 {
