@@ -338,10 +338,12 @@
         <a href="#top" class="back-to-top">Back to top ↑</a>
       </div>
     </footer>
-
-      <script>
+<script>
   // Set current year in footer
-  document.getElementById("year").textContent = new Date().getFullYear();
+  const yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 
   // Smooth scroll for nav links
   document.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -378,29 +380,59 @@
     });
   });
 
-  // ===== Neon Cursor Dot (Desktop Only) =====
-const neonCursor = document.createElement("div");
-neonCursor.className = "neon-cursor";
-document.body.appendChild(neonCursor);
+  // =========
+  // Neon Cursor Dot with Trailing Motion
+  // =========
 
-let cursorX = 0, cursorY = 0;
-let targetX = 0, targetY = 0;
+  const neonCursor = document.createElement("div");
+  neonCursor.className = "neon-cursor";
+  document.body.appendChild(neonCursor);
 
-window.addEventListener("mousemove", (e) => {
-  targetX = e.clientX;
-  targetY = e.clientY;
-});
+  let cursorX = window.innerWidth / 2;
+  let cursorY = window.innerHeight / 2;
+  let targetX = cursorX;
+  let targetY = cursorY;
 
-function animateCursor() {
-  cursorX += (targetX - cursorX) * 0.25;
-  cursorY += (targetY - cursorY) * 0.25;
-  neonCursor.style.left = cursorX + "px";
-  neonCursor.style.top = cursorY + "px";
-  requestAnimationFrame(animateCursor);
-}
+  // Update target on mouse move
+  window.addEventListener("mousemove", (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    neonCursor.style.opacity = "1"; // show once we move
+  });
 
-animateCursor();
+  // Hide when mouse leaves window
+  window.addEventListener("mouseleave", () => {
+    neonCursor.style.opacity = "0";
+  });
+
+  // Smooth trailing animation
+  function animateCursor() {
+    cursorX += (targetX - cursorX) * 0.25; // easing factor 0.25 = smooth
+    cursorY += (targetY - cursorY) * 0.25;
+
+    neonCursor.style.left = cursorX + "px";
+    neonCursor.style.top = cursorY + "px";
+
+    requestAnimationFrame(animateCursor);
+  }
+
+  animateCursor();
+
+  // Grow cursor when hovering interactive elements
+  const hoverTargets = document.querySelectorAll(
+    "a, button, .btn, .project-card, .skill-card"
+  );
+
+  hoverTargets.forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      neonCursor.classList.add("cursor-hover");
+    });
+    el.addEventListener("mouseleave", () => {
+      neonCursor.classList.remove("cursor-hover");
+    });
+  });
 </script>
+  
   </main>
 </body>
 </html>
