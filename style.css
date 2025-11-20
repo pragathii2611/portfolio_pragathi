@@ -109,10 +109,9 @@ a:hover {
 
 .hero {
   padding: 4.5rem 0 3.5rem;
-  position: relative;        
-  overflow: hidden;        
+  position: relative;
+  overflow: hidden;
 }
-
 
 .hero-content {
   display: grid;
@@ -162,6 +161,7 @@ a:hover {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
   overflow: hidden;
 }
+
 .hero-card::before {
   content: "";
   position: absolute;
@@ -189,37 +189,33 @@ a:hover {
   z-index: 1;
 }
 
-/* Soft neon orbit behind hero */
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 122, 26, 0.28) 0, rgba(255, 122, 26, 0) 60%);
-  top: -140px;
-  right: -120px;
-  filter: blur(2px);
-  opacity: 0.9;
-  pointer-events: none;
-  animation: orbitPulse 14s ease-in-out infinite alternate;
+/* Gradient shine on main heading and section titles */
+
+.hero h1,
+.section h2 {
+  position: relative;
+  background-image: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #ffffff 40%,
+    #ff7a1a 60%,
+    #ffffff 100%
+  );
+  background-size: 220% 100%;
+  background-position: 0% 0%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  transition: background-position 0.5s ease;
 }
 
-
-.hero::after {
-  content: "";
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 122, 26, 0.18) 0, rgba(255, 122, 26, 0) 60%);
-  bottom: -80px;
-  left: -60px;
-  filter: blur(1px);
-  opacity: 0.7;
-  pointer-events: none;
-  animation: orbitDrift 18s ease-in-out infinite alternate;
+.hero h1:hover,
+.section h2:hover {
+  background-position: 100% 0;
 }
+
 /* =========
    Buttons
    ========= */
@@ -277,25 +273,10 @@ a:hover {
 
 .section-alt {
   background: #000000;
-  position: relative;        
-  overflow: hidden;         
+  position: relative;
+  overflow: hidden;
 }
 
-/* Soft orbit in alt sections (skills / projects) */
-.section-alt::before {
-  content: "";
-  position: absolute;
-  width: 360px;
-  height: 360px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 122, 26, 0.22) 0, rgba(255, 122, 26, 0) 60%);
-  top: 20%;
-  left: -160px;
-  filter: blur(2px);
-  opacity: 0.7;
-  pointer-events: none;
-  animation: orbitDrift 22s ease-in-out infinite alternate;
-}
 .section h2 {
   margin: 0 0 0.8rem;
   font-size: 1.5rem;
@@ -514,6 +495,106 @@ a:hover {
   opacity: 1;
 }
 
+/* Embedded game frame inside project card */
+
+.game-embed {
+  margin-top: 0.8rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #262626;
+  background: #000000;
+}
+
+.game-embed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.8rem;
+  color: #e5e7eb;
+  background: #050505;
+  border-bottom: 1px solid #262626;
+}
+
+.game-embed-header span {
+  opacity: 0.9;
+}
+
+.game-embed-header a {
+  font-size: 0.78rem;
+  color: #ff7a1a;
+  border-bottom: 1px solid transparent;
+}
+
+.game-embed-header a:hover {
+  border-color: #ff7a1a;
+}
+
+.game-embed iframe {
+  display: block;
+  width: 100%;
+  height: 320px;
+  border: none;
+  background: #000000;
+}
+
+/* Embedded drawing app frame inside project card */
+
+.app-embed {
+  margin-top: 0.8rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #262626;
+  background: #000000;
+}
+
+.app-embed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.8rem;
+  color: #e5e7eb;
+  background: #050505;
+  border-bottom: 1px solid #262626;
+}
+
+.app-embed-header span {
+  opacity: 0.9;
+}
+
+.app-embed-header a {
+  font-size: 0.78rem;
+  color: #ff7a1a;
+  border-bottom: 1px solid transparent;
+}
+
+.app-embed-header a:hover {
+  border-color: #ff7a1a;
+}
+
+.app-embed iframe {
+  display: block;
+  width: 100%;
+  height: 420px;
+  border: none;
+  background: #000000;
+}
+
+/* Smaller on mobile */
+@media (max-width: 600px) {
+  .app-embed iframe {
+    height: 300px;
+  }
+}
+
+/* Slightly shorter on small screens */
+@media (max-width: 600px) {
+  .game-embed iframe {
+    height: 260px;
+  }
+}
+
 /* =========
    Contact
    ========= */
@@ -591,29 +672,7 @@ a:hover {
   opacity: 1;
   transform: translateY(0);
 }
-/* =========
-   Orbit animations
-   ========= */
 
-@keyframes orbitPulse {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translate3d(16px, -10px, 0) scale(1.18);
-    opacity: 1;
-  }
-}
-
-@keyframes orbitDrift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(-12px, 8px, 0) scale(1.08);
-  }
-}
 /* =========
    Mobile / Responsive
    ========= */
@@ -652,7 +711,6 @@ a:hover {
     padding-inline: 1rem;
   }
 }
-
 
 @media (max-width: 600px) {
   .hero h1 {
