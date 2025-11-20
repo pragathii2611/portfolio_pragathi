@@ -339,45 +339,68 @@
       </div>
     </footer>
 
-    <script>
-      // Set current year in footer
-      document.getElementById("year").textContent = new Date().getFullYear();
+      <script>
+  // Set current year in footer
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Smooth scroll for nav links
-      document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener("click", function (e) {
-          const target = document.querySelector(this.getAttribute("href"));
-          if (!target) return;
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", function (e) {
+      const target = document.querySelector(this.getAttribute("href"));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  // Reveal on scroll animations using IntersectionObserver
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
       });
+    },
+    { threshold: 0.15 }
+  );
 
-      // Reveal on scroll animations using IntersectionObserver
-      const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("in-view");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.15 }
-      );
+  document.querySelectorAll(".reveal-on-scroll").forEach(el => {
+    observer.observe(el);
+  });
 
-      document.querySelectorAll(".reveal-on-scroll").forEach(el => {
-        observer.observe(el);
-      });
+  // Touch "hover" effect for cards on mobile
+  document.querySelectorAll(".project-card, .skill-card").forEach(card => {
+    card.addEventListener("touchstart", () => {
+      card.classList.add("active-touch");
+      setTimeout(() => card.classList.remove("active-touch"), 300);
+    });
+  });
 
-      // Touch "hover" effect for cards on mobile
-      document.querySelectorAll(".project-card, .skill-card").forEach(card => {
-        card.addEventListener("touchstart", () => {
-          card.classList.add("active-touch");
-          setTimeout(() => card.classList.remove("active-touch"), 300);
-        });
-      });
-    </script>
+  // ===== Neon Cursor Dot (Desktop Only) =====
+const neonCursor = document.createElement("div");
+neonCursor.className = "neon-cursor";
+document.body.appendChild(neonCursor);
+
+let cursorX = 0, cursorY = 0;
+let targetX = 0, targetY = 0;
+
+window.addEventListener("mousemove", (e) => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+});
+
+function animateCursor() {
+  cursorX += (targetX - cursorX) * 0.25;
+  cursorY += (targetY - cursorY) * 0.25;
+  neonCursor.style.left = cursorX + "px";
+  neonCursor.style.top = cursorY + "px";
+  requestAnimationFrame(animateCursor);
+}
+
+animateCursor();
+</script>
   </main>
 </body>
 </html>
