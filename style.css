@@ -109,7 +109,10 @@ a:hover {
 
 .hero {
   padding: 4.5rem 0 3.5rem;
+  position: relative;        
+  overflow: hidden;        
 }
+
 
 .hero-content {
   display: grid;
@@ -159,13 +162,12 @@ a:hover {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
   overflow: hidden;
 }
-
 .hero-card::before {
   content: "";
   position: absolute;
   inset: -40%;
-  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.12), transparent 55%);
-  opacity: 0.4;
+  background: radial-gradient(circle at top, rgba(255, 122, 26, 0.18), transparent 60%);
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -187,6 +189,37 @@ a:hover {
   z-index: 1;
 }
 
+/* Soft neon orbit behind hero */
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 122, 26, 0.28) 0, rgba(255, 122, 26, 0) 60%);
+  top: -140px;
+  right: -120px;
+  filter: blur(2px);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: orbitPulse 14s ease-in-out infinite alternate;
+}
+
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 122, 26, 0.18) 0, rgba(255, 122, 26, 0) 60%);
+  bottom: -80px;
+  left: -60px;
+  filter: blur(1px);
+  opacity: 0.7;
+  pointer-events: none;
+  animation: orbitDrift 18s ease-in-out infinite alternate;
+}
 /* =========
    Buttons
    ========= */
@@ -244,8 +277,25 @@ a:hover {
 
 .section-alt {
   background: #000000;
+  position: relative;        
+  overflow: hidden;         
 }
 
+/* Soft orbit in alt sections (skills / projects) */
+.section-alt::before {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 122, 26, 0.22) 0, rgba(255, 122, 26, 0) 60%);
+  top: 20%;
+  left: -160px;
+  filter: blur(2px);
+  opacity: 0.7;
+  pointer-events: none;
+  animation: orbitDrift 22s ease-in-out infinite alternate;
+}
 .section h2 {
   margin: 0 0 0.8rem;
   font-size: 1.5rem;
@@ -541,7 +591,29 @@ a:hover {
   opacity: 1;
   transform: translateY(0);
 }
+/* =========
+   Orbit animations
+   ========= */
 
+@keyframes orbitPulse {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate3d(16px, -10px, 0) scale(1.18);
+    opacity: 1;
+  }
+}
+
+@keyframes orbitDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-12px, 8px, 0) scale(1.08);
+  }
+}
 /* =========
    Mobile / Responsive
    ========= */
